@@ -1,6 +1,6 @@
 # My todo app
 
-## Development Stack
+## Development stack
 
 - **Operating System**: Windows 11
 - **IDE**: Visual Studio Code

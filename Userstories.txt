@@ -3,7 +3,7 @@ Epic 1: Task Management
 
 As a user, I want to create a new task so that I can remember things I need to do.
 As a user, I want to edit an existing task so that I can correct mistakes or update details.
-As a user, I want to delete a task so that I can remove tasks I don't need anymore.
+As a user, I want to delete a task so that I can remove tasks I no longer need.
 As a user, I want to mark a task as complete so that I can track my progress.
 
 Epic 2: User Accounts & Authentication
