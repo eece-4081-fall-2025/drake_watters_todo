@@ -1,7 +1,37 @@
-<ul>
-  {% for t in tasks %}
-    <li>{{ t.title }}</li>
-  {% empty %}
-    <li>No tasks yet!</li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+
+    <p><a href="{% url 'task_create' %}">Add New Task</a></p>
+
+    <ul>
+    {% for task in tasks %}
+        <li>
+            {% if task.is_completed %}
+                <s>{{ task.title }}</s>
+            {% else %}
+                {{ task.title }}
+            {% endif %}
+            {% if task.due %}(due {{ task.due|date:"M d, Y H:i" }}){% endif %}
+            <form action="{% url 'task_toggle_complete' task.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">
+                    {% if task.is_completed %}Undo{% else %}Complete{% endif %}
+                </button>
+            </form>
+            [<a href="{% url 'task_update' task.pk %}">Edit</a>]
+            <form action="{% url 'task_delete' task.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No tasks yet!</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

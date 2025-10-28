@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Task</title>
+</head>
+<body>
+    <h1>Add a New Task</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Title:</label><br>
+            <input type="text" name="title" required>
+        </p>
+        <p>
+            <label>Notes:</label><br>
+            <textarea name="notes"></textarea>
+        </p>
+        <p>
+            <label>Due (optional):</label><br>
+            <input type="text" name="due" placeholder="e.g. 2025-10-30 14:30 or leave blank">
+        </p>
+        <button type="submit">Save</button>
+        <a href="{% url 'task_list' %}">Cancel</a>
+    </form>
+</body>
+</html>

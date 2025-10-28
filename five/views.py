@@ -1,58 +1,53 @@
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
-import datetime
 
 
-def parse_due(v):
-    if not v:
+def parse_due(value):
+    if not value:
         return None
     try:
-        return datetime.datetime.strptime(v.strip(), "%Y-%m-%d %H:%M")
-    except:
+        return datetime.strptime(value.strip(), "%Y-%m-%d %H:%M")
+    except ValueError:
         return None
 
 
-def task_list(r):
-    q = Task.objects.all()
-    return render(r, "five/task_list.html", {"tasks": q})
+def task_list(request):
+    tasks = Task.objects.all()
+    return render(request, "five/task_list.html", {"tasks": tasks})
 
 
-def task_create(r):
-    if r.method == "POST":
-        a = r.POST.get("title")
-        b = r.POST.get("notes", "")
-        c = r.POST.get("due", "")
-        d = parse_due(c)
-        Task.objects.create(title=a, notes=b, due=d)
+def task_create(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        notes = request.POST.get("notes", "")
+        due_text = request.POST.get("due", "")
+        due_value = parse_due(due_text)
+        Task.objects.create(title=title, notes=notes, due=due_value)
         return redirect("task_list")
-    else:
-        return render(r, "five/task_form.html")
+    return render(request, "five/task_form.html")
 
 
-def task_update(r, pk):
-    t = get_object_or_404(Task, pk=pk)
-    if r.method == "POST":
-        t.title = r.POST.get("title")
-        t.notes = r.POST.get("notes", "")
-        u = r.POST.get("due", "")
-        t.due = parse_due(u)
-        t.save()
+def task_update(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        task.title = request.POST.get("title")
+        task.notes = request.POST.get("notes", "")
+        due_text = request.POST.get("due", "")
+        task.due = parse_due(due_text)
+        task.save()
         return redirect("task_list")
-    else:
-        return render(r, "five/task_form.html", {"task": t})
+    return render(request, "five/task_form.html", {"task": task})
 
 
-def task_delete(r, pk):
-    s = get_object_or_404(Task, pk=pk)
-    s.delete()
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.delete()
     return redirect("task_list")
 
 
-def task_toggle_complete(r, pk):
-    v = get_object_or_404(Task, pk=pk)
-    if v.is_completed == True:
-        v.is_completed = False
-    else:
-        v.is_completed = True
-    v.save()
+def task_toggle_complete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_completed = not task.is_completed
+    task.save()
     return redirect("task_list")
