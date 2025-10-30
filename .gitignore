@@ -1,0 +1,41 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+env/
+
+# SQLite databases
+*.sqlite3
+*.db
+
+# Logs and local files
+*.log
+
+# Django stuff
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.mo
+
+# Migrations cache
+*/migrations/__pycache__/
+
+# Editor / IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Test and coverage files
+.pytest_cache/
+.coverage
+htmlcov/
