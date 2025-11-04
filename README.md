@@ -69,25 +69,6 @@ test_delete_task	Checks that deleting removes the task from the list.
 test_toggle_complete	Validates toggling a task’s completion status.
 
 
-Project Structure
-my_django_project/
-│
-├── five/                    # Main app folder
-│   ├── migrations/
-│   ├── templates/five/      # HTML templates
-│   ├── models.py            # Task model
-│   ├── views.py             # CRUD + toggle logic
-│   ├── urls.py              # App routes
-│   ├── tests.py             # Unit tests
-│
-├── mysite/                  # Django project configuration
-│   ├── settings.py
-│   ├── urls.py
-│
-├── manage.py
-├── .gitignore
-├── README.md
-
 🧹 .gitignore Highlights
 venv/
 __pycache__/
@@ -96,6 +77,7 @@ db.sqlite3
 *.pyc
 *.pyo
 *.pyd
+
 
 Development Notes
 
